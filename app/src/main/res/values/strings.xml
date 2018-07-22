@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Thief\'s Selfie</string>
+    <string name="nameActivador">Activar Thiefs Selfie</string>
+    <string name="opcionactivador">Activar Thief\'s Selfie</string>
+    <string name="opcionmenu">Desactivar Menu De Apagado</string>
+    <string name="opcionubicacion">Enviar Localización</string>
+    <string-array name="intentos">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+</resources>
