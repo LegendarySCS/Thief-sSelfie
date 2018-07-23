@@ -87,11 +87,12 @@ public class SeguridAdmin extends DeviceAdminReceiver{
             SendEmail emailSender=new SendEmail();
             takeSnapShots(context);
             String ubcacion= ubicacion(context);
-            emailSender.execute("luispazmanta@gmail.com","********",Correo,"Intento de desbloqueo Fallido",
-                    "Alguien intento desbloquer su celular lugar:"+ubcacion+"<a class=\"home-link\" href=\"https://www.google.com/maps/search/?api=1&amp;query="+loc.getLatitude()+","+loc.getLongitude()+">Ver en el Mapa Aqui</a><br><br> ","/sdcard/Pictures/"+conf1+"/Rufian.jpg");
+            emailSender.execute("thiefs.selfie.22@gmail.com","Selfie2218",Correo,"Intento de desbloqueo Fallido",
+                    "Alguien intento desbloquer su celular lugar:"+ubcacion+"<br><br><a class=\"home-link\" href=\"https://www.google.com/maps/search/?api=1&amp;query="+loc.getLatitude()+","+loc.getLongitude()+"\">Ver en el Mapa Aqui</a>","/sdcard/Pictures/"+conf1+"/Rufian.jpg");
 
             editor.putInt("contador",0);
             editor.apply();
+            Log.w("Datos","thiefs.selfie.22@gmail.com - Selfie2218 "+Correo+" Intento de desbloqueo Fallido---Alguien intento desbloquer su celular lugar:"+ubcacion+"<a class=\"home-link\" href=\"https://www.google.com/maps/search/?api=1&amp;query="+loc.getLatitude()+","+loc.getLongitude()+">Ver en el Mapa Aqui</a>---/sdcard/Pictures/"+conf1+"/Rufian.jpg");
 
         }else{
             counter = counter + 1;
@@ -201,7 +202,7 @@ public class SeguridAdmin extends DeviceAdminReceiver{
                 outStream = new FileOutputStream(dir_path+File.separator+image_name+".jpg");
                 outStream.write(data);
                 outStream.close();
-                Log.d(TAG, "onPictureTaken - wrote bytes: " + data.length);
+                Log.d(TAG, "onPictureTaken - wrote bytes: " +dir_path+"--"+ data.length);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {

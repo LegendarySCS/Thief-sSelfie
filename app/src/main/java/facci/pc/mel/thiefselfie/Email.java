@@ -51,18 +51,17 @@ public class Email extends javax.mail.Authenticator {
         _port = "465"; // default smtp port
         _sport = "465"; // default socketfactory port
 
-        _user = ""; // username
-        _pass = ""; // password
-        _from = ""; // email sent from
+        _user = ""; // usuario
+        _pass = ""; // Contraseña
+        _from = ""; // correo de donde enviar
         _subject = ""; // email subject
-        _body = ""; // email body
+        _body = ""; // email cuero
 
-        _debuggable = false; // debug mode on or off - default off
-        _auth = true; // smtp authentication - default on
+        _debuggable = false;
+        _auth = true;
 
         _multipart = new MimeMultipart();
 
-// There is something wrong with MailCap, javamail can not find a handler for the multipart/mixed part, so this bit needs to be added.
         MailcapCommandMap mc = (MailcapCommandMap) CommandMap.getDefaultCommandMap();
         mc.addMailcap("text/html;; x-java-content-handler=com.sun.mail.handlers.text_html");
         mc.addMailcap("text/xml;; x-java-content-handler=com.sun.mail.handlers.text_xml");
@@ -86,76 +85,51 @@ public class Email extends javax.mail.Authenticator {
 
     public boolean send() throws Exception {
         Properties props = new Properties();
-        // Assuming you are sending email through relay.jangosmtp.net
-        //String host = "relay.jangosmtp.net";
-
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.socketFactory.port", "465");
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.port", "465");
-
         Session session  = Session.getDefaultInstance(props, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("luispazmanta@gmail.com", "Adonis0919");
+                return new PasswordAuthentication(_user, _pass);
             }
         });
 
         try
         {
 
-
-            // Create a default MimeMessage object.
             MimeMessage message = new MimeMessage(session);
-
-            // Set From: header field of the header.
             message.setFrom(new InternetAddress(_from));
-
-            // Set To: header field of the header.
-            //message.setRecipients(MimeMessage.RecipientType.TO, InternetAddress.parse(_to[0]));
             message.setRecipients(MimeMessage.RecipientType.TO, _to);
-
-
-            // Set Subject: header field
             message.setSubject(_subject);
-
-            // This mail has 2 part, the BODY and the embedded image
             MimeMultipart multipart = new MimeMultipart("related");
-
-            // first part (the html)
             BodyPart messageBodyPart = new MimeBodyPart();
             String htmlText =  _body + " <img src=\"cid:image\">";
             messageBodyPart.setContent(htmlText, "text/html");
-            // add it
-            multipart.addBodyPart(messageBodyPart);
 
+            multipart.addBodyPart(messageBodyPart);
             messageBodyPart = new MimeBodyPart();
             DataSource fds = new FileDataSource(_fileName);
-
             messageBodyPart.setDataHandler(new DataHandler(fds));
             messageBodyPart.setHeader("Content-ID", "<image>");
 
-            // add image to the multipart
             multipart.addBodyPart(messageBodyPart);
-
-            // put everything together
             message.setContent(multipart);
-            // Send message
+
             Transport.send(message);
 
             System.out.println("Sent message successfully....");
-
-            Log.e("Mensaje",_from);
-            Log.e("Mensaje",_to);
-            Log.e("Mensaje",_body);
-
+//            Log.e("Mensaje",_from);
+//            Log.e("Mensaje",_to);
+//            Log.e("Mensaje",_body);
             return true;
         }
         catch (MessagingException e)
         {
-            Log.d("Mensaje",_from);
-            Log.d("Mensaje",_to);
-            Log.d("Mensaje",_body);
+//            Log.d("Mensaje",_from);
+//            Log.d("Mensaje",_to);
+//            Log.d("Mensaje",_body);
             e.printStackTrace();
             return false;
         }
@@ -178,30 +152,8 @@ public class Email extends javax.mail.Authenticator {
         return new PasswordAuthentication(_user, _pass);
     }
 
-    private Properties _setProperties() {
-        Properties props = new Properties();
-
-        props.put("mail.smtp.host", _host);
-
-        if(_debuggable) {
-            props.put("mail.debug", "true");
-        }
-
-        if(_auth) {
-            props.put("mail.smtp.auth", "true");
-        }
-
-        props.put("mail.smtp.port", _port);
-        props.put("mail.smtp.socketFactory.port", _sport);
-        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-        props.put("mail.smtp.socketFactory.fallback", "false");
 
 
-
-        return props;
-    }
-
-    // the getters and setters
     public String getBody() {
         return _body;
     }

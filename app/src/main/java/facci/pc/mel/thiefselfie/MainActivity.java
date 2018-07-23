@@ -131,13 +131,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    Toast.makeText(getApplicationContext(), "on", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "on", Toast.LENGTH_SHORT).show();
                     admin();
                     permisos();
                     activartodo(true);
 
                 } else {
-                    Toast.makeText(getApplicationContext(), "off", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "off", Toast.LENGTH_SHORT).show();
                     activartodo(false);
                     deviceManger.removeActiveAdmin(compName);
                 }
@@ -214,14 +214,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void showDialog1() {
 
-        // get prompts.xml view
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         View promptView = layoutInflater.inflate(R.layout.input_dialog, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
         alertDialogBuilder.setView(promptView);
 
         final EditText editText = (EditText) promptView.findViewById(R.id.edittext);
-        // setup a dialog window
         alertDialogBuilder.setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -239,20 +237,16 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
 
-        // create an alert dialog
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
     }
     private void showDialog2() {
-
-        // get prompts.xml view
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         View promptView = layoutInflater.inflate(R.layout.input_dialog, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
         alertDialogBuilder.setView(promptView);
 
         final EditText editText = (EditText) promptView.findViewById(R.id.edittext);
-        // setup a dialog window
         alertDialogBuilder.setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -269,7 +263,6 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
 
-        // create an alert dialog
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
     }
@@ -301,7 +294,7 @@ public class MainActivity extends AppCompatActivity {
 
             } else {
                 //Si todos los permisos estan concedidos prosigue con el flujo normal
-                Toast.makeText(this, "The permissions are already granted ", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "The permissions are already granted ", Toast.LENGTH_LONG).show();
 
             }
   //
@@ -333,7 +326,7 @@ public class MainActivity extends AppCompatActivity {
                 List<Address> list = geocoder.getFromLocation(loc.getLatitude(), loc.getLongitude(), 1);
                 if (!list.isEmpty()) {
                     Address address = list.get(0);
-                    Log.d("Mi direcci—n es: \n" , address.getAddressLine(0));
+                   // Log.d("Mi direcci—n es: \n" , address.getAddressLine(0));
                 }
             } catch (IOException e) {
                 e.printStackTrace();
